@@ -14,7 +14,7 @@
 </a>
 
 
-# Fork of TensorLayer: Deep learning and Reinforcement learning library for Researchers and Engineers. 
+# Forked from TensorLayer: Deep learning and Reinforcement learning library for Researchers and Engineers. 
 
 Try to implement Question Answering Syetem.
 
