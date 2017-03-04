@@ -536,8 +536,8 @@ class DenseLayer(Layer):
         self.n_units = n_units
         print("  tensorlayer:Instantiate DenseLayer %s: %d, %s" % (self.name, self.n_units, act))
         with tf.variable_scope(name) as vs:
-            W = tf.get_variable(name='W', shape=(n_in, n_units), initializer=W_init, **W_init_args )
-            b = tf.get_variable(name='b', shape=(n_units), initializer=b_init, **b_init_args )
+            W = tf.get_variable(name='W', shape=(n_in, n_units), initializer=W_init, **W_init_args )  # share variable
+            b = tf.get_variable(name='b', shape=(n_units), initializer=b_init, **b_init_args ) # share variable
         self.outputs = act(tf.matmul(self.inputs, W) + b)
 
         # Hint : list(), dict() is pass by value (shallow), without them, it is
@@ -545,8 +545,8 @@ class DenseLayer(Layer):
         self.all_layers = list(layer.all_layers)
         self.all_params = list(layer.all_params)
         self.all_drop = dict(layer.all_drop)
-        self.all_layers.extend( [self.outputs] )
-        self.all_params.extend( [W, b] )
+        self.all_layers.extend( [self.outputs] )   # all layers outputs till this layer.
+        self.all_params.extend( [W, b] ) # all layers params till this layer.
         # shallow cope allows the weights in network can be changed at the same
         # time, when ReconLayer updates the weights of encoder.
         #
